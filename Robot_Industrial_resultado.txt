@@ -1,0 +1,372 @@
+Coordenadas generalizadas
+(th1(t), th2(t), th3(t), th4(t), th5(t), th6(t))
+
+Velocidades generalizadas
+/  d          d          d          d          d          d        \
+| -- th1(t), -- th2(t), -- th3(t), -- th4(t), -- th5(t), -- th6(t) |
+\ dt         dt         dt         dt         dt         dt        /
+
+Matriz de Transformación local A1
+/                                                   2      \
+|  0, -sin(th1(t)), cos(th1(t)), sin(th1(t)) sqrt(l1  - h) |
+|                                                          |
+|                                                   2      |
+|  0,  cos(th1(t)), sin(th1(t)), cos(th1(t)) sqrt(l1  - h) |
+|                                                          |
+| -1,       0,           0,                  h             |
+|                                                          |
+\  0,       0,           0,                  1             /
+
+Matriz de Transformación global T1
+/                                                   2      \
+|  0, -sin(th1(t)), cos(th1(t)), sin(th1(t)) sqrt(l1  - h) |
+|                                                          |
+|                                                   2      |
+|  0,  cos(th1(t)), sin(th1(t)), cos(th1(t)) sqrt(l1  - h) |
+|                                                          |
+| -1,       0,           0,                  h             |
+|                                                          |
+\  0,       0,           0,                  1             /
+
+Matriz de Transformación local A2
+/ cos(th2(t)), -sin(th2(t)), 0,  l2 sin(th2(t)) \
+|                                               |
+| sin(th2(t)),  cos(th2(t)), 0, -l2 cos(th2(t)) |
+|                                               |
+|      0,            0,      1,        0        |
+|                                               |
+\      0,            0,      0,        1        /
+
+Matriz de Transformación global T2
+/ -sin(th1(t)) sin(th2(t)), -cos(th2(t)) sin(th1(t)), cos(th1(t)),  sin(th1(t)) (#1 + #2) \
+|                                                                                         |
+|  cos(th1(t)) sin(th2(t)),  cos(th1(t)) cos(th2(t)), sin(th1(t)), -cos(th1(t)) (#1 - #2) |
+|                                                                                         |
+|       -cos(th2(t)),              sin(th2(t)),            0,        h - l2 sin(th2(t))   |
+|                                                                                         |
+\             0,                        0,                 0,                 1           /
+
+where
+
+   #1 == l2 cos(th2(t))
+
+                2
+   #2 == sqrt(l1  - h)
+
+
+Matriz de Transformación local A3
+/ cos(th3(t)), 0,  sin(th3(t)), l3 sin(th3(t)) \
+|                                              |
+| sin(th3(t)), 0, -cos(th3(t)), l3 cos(th3(t)) |
+|                                              |
+|      0,      1,       0,             0       |
+|                                              |
+\      0,      0,       0,             1       /
+
+Matriz de Transformación global T3
+/ -sin(th1(t)) sin(#3), cos(th1(t)),  sin(th1(t)) cos(#3), sin(th1(t)) (#1 + #4 - l3 cos(#2)) \
+|                                                                                             |
+|  cos(th1(t)) sin(#3), sin(th1(t)), -cos(th1(t)) cos(#3), cos(th1(t)) (#4 - #1 + l3 cos(#2)) |
+|                                                                                             |
+|       -cos(#3),            0,            -sin(#3),         h - l2 sin(th2(t)) + l3 sin(#2)  |
+|                                                                                             |
+\           0,               0,                0,                           1                 /
+
+where
+
+   #1 == l2 cos(th2(t))
+
+   #2 == th2(t) - th3(t)
+
+   #3 == th2(t) + th3(t)
+
+                2
+   #4 == sqrt(l1  - h)
+
+
+Matriz de Transformación local A4
+/ cos(th4(t)),  0, -sin(th4(t)),  0 \
+|                                   |
+| sin(th4(t)),  0,  cos(th4(t)),  0 |
+|                                   |
+|      0,      -1,       0,      l4 |
+|                                   |
+\      0,       0,       0,       1 /
+
+Matriz de Transformación global T4
+[[cos(th1(t)) sin(th4(t)) - cos(th4(t)) sin(th1(t)) sin(#3), -sin(th1(t)) cos(#3), cos(th1(t)) cos(th4(t)) + sin(th1(t)) sin(th4(t)) sin(#3),
+
+  sin(th1(t)) (#1 + #4 - l3 cos(#2)) + l4 sin(th1(t)) cos(#3)],
+
+  [sin(th1(t)) sin(th4(t)) + cos(th1(t)) cos(th4(t)) sin(#3), cos(th1(t)) cos(#3), cos(th4(t)) sin(th1(t)) - cos(th1(t)) sin(th4(t)) sin(#3),
+
+  cos(th1(t)) (#4 - #1 + l3 cos(#2)) - l4 cos(th1(t)) cos(#3)],
+
+  [-cos(th4(t)) cos(#3), sin(#3), sin(th4(t)) cos(#3), h - l2 sin(th2(t)) - l4 sin(#3) + l3 sin(#2)],
+
+  [0, 0, 0, 1]]
+
+where
+
+   #1 == l2 cos(th2(t))
+
+   #2 == th2(t) - th3(t)
+
+   #3 == th2(t) + th3(t)
+
+                2
+   #4 == sqrt(l1  - h)
+
+
+Matriz de Transformación local A5
+/ cos(th5(t)), 0,  sin(th5(t)),  0 \
+|                                  |
+| sin(th5(t)), 0, -cos(th5(t)), l5 |
+|                                  |
+|      0,      1,       0,       0 |
+|                                  |
+\      0,      0,       0,       1 /
+
+Matriz de Transformación global T5
+[[cos(th5(t)) #4 - sin(th1(t)) sin(th5(t)) cos(#6), cos(th1(t)) cos(th4(t)) + sin(th1(t)) sin(th4(t)) sin(#6),
+
+  sin(th5(t)) #4 + cos(th5(t)) sin(th1(t)) cos(#6), sin(th1(t)) (#1 + #3 + l4 cos(#6) - l5 cos(#6) - l3 cos(#2))],
+
+  [cos(th5(t)) #5 + cos(th1(t)) sin(th5(t)) cos(#6), cos(th4(t)) sin(th1(t)) - cos(th1(t)) sin(th4(t)) sin(#6),
+
+  sin(th5(t)) #5 - cos(th1(t)) cos(th5(t)) cos(#6), cos(th1(t)) (#3 - #1 - l4 cos(#6) + l5 cos(#6) + l3 cos(#2))],
+
+  [sin(th5(t)) sin(#6) - cos(th4(t)) cos(th5(t)) cos(#6), sin(th4(t)) cos(#6), - cos(th5(t)) sin(#6) - cos(th4(t)) sin(th5(t)) cos(#6),
+
+  h - l2 sin(th2(t)) - l4 sin(#6) + l5 sin(#6) + l3 sin(#2)],
+
+  [0, 0, 0, 1]]
+
+where
+
+   #1 == l2 cos(th2(t))
+
+   #2 == th2(t) - th3(t)
+
+                2
+   #3 == sqrt(l1  - h)
+
+   #4 == cos(th1(t)) sin(th4(t)) - cos(th4(t)) sin(th1(t)) sin(#6)
+
+   #5 == sin(th1(t)) sin(th4(t)) + cos(th1(t)) cos(th4(t)) sin(#6)
+
+   #6 == th2(t) + th3(t)
+
+
+Matriz de Transformación local A6
+/ cos(th6(t)), -sin(th6(t)), 0, 0 \
+|                                 |
+| sin(th6(t)),  cos(th6(t)), 0, 0 |
+|                                 |
+|      0,            0,      1, 0 |
+|                                 |
+\      0,            0,      0, 1 /
+
+Matriz de Transformación global T6
+[[cos(th6(t)) #4 + sin(th6(t)) #7, cos(th6(t)) #7 - sin(th6(t)) #4, sin(th5(t)) #9 + cos(th5(t)) sin(th1(t)) cos(#11),
+
+  sin(th1(t)) (#1 + #3 + l4 cos(#11) - l5 cos(#11) - l3 cos(#2))],
+
+  [cos(th6(t)) #5 + sin(th6(t)) #6, cos(th6(t)) #6 - sin(th6(t)) #5, sin(th5(t)) #10 - cos(th1(t)) cos(th5(t)) cos(#11),
+
+  cos(th1(t)) (#3 - #1 - l4 cos(#11) + l5 cos(#11) + l3 cos(#2))],
+
+  [cos(th6(t)) #8 + sin(th4(t)) sin(th6(t)) cos(#11), cos(th6(t)) sin(th4(t)) cos(#11) - sin(th6(t)) #8,
+
+  - cos(th5(t)) sin(#11) - cos(th4(t)) sin(th5(t)) cos(#11), h - l2 sin(th2(t)) - l4 sin(#11) + l5 sin(#11) + l3 sin(#2)],
+
+  [0, 0, 0, 1]]
+
+where
+
+   #1 == l2 cos(th2(t))
+
+   #2 == th2(t) - th3(t)
+
+                2
+   #3 == sqrt(l1  - h)
+
+   #4 == cos(th5(t)) #9 - sin(th1(t)) sin(th5(t)) cos(#11)
+
+   #5 == cos(th5(t)) #10 + cos(th1(t)) sin(th5(t)) cos(#11)
+
+   #6 == cos(th4(t)) sin(th1(t)) - cos(th1(t)) sin(th4(t)) sin(#11)
+
+   #7 == cos(th1(t)) cos(th4(t)) + sin(th1(t)) sin(th4(t)) sin(#11)
+
+   #8 == sin(th5(t)) sin(#11) - cos(th4(t)) cos(th5(t)) cos(#11)
+
+   #9 == cos(th1(t)) sin(th4(t)) - cos(th4(t)) sin(th1(t)) sin(#11)
+
+   #10 == sin(th1(t)) sin(th4(t)) + cos(th1(t)) cos(th4(t)) sin(#11)
+
+   #11 == th2(t) + th3(t)
+
+
+Jacobiano lineal obtenido de forma diferencial
+/  cos(th1(t)) (#1 + #2 + l4 cos(#6) - l5 cos(#6) - l3 cos(#5)),              -sin(th1(t)) #3,                         -sin(th1(t)) #4,           0, 0, 0 \
+\
+|                                                                                                                                                         |
+| -sin(th1(t)) (#2 - #1 - l4 cos(#6) + l5 cos(#6) + l3 cos(#5)),               cos(th1(t)) #3,                         cos(th1(t)) #4,            0, 0, 0 |
+|                                                                                                                                                         |
+\                               0,                               l5 cos(#6) - l4 cos(#6) - #1 + l3 cos(#5), l5 cos(#6) - l4 cos(#6) - l3 cos(#5), 0, 0, 0 /
+
+where
+
+   #1 == l2 cos(th2(t))
+
+                2
+   #2 == sqrt(l1  - h)
+
+   #3 == l2 sin(th2(t)) + l4 sin(#6) - l5 sin(#6) - l3 sin(#5)
+
+   #4 == l4 sin(#6) - l5 sin(#6) + l3 sin(#5)
+
+   #5 == th2(t) - th3(t)
+
+   #6 == th2(t) + th3(t)
+
+
+Jacobiano lineal obtenido de forma analítica
+[[-cos(th1(t)) (#2 - #1 - l4 cos(#6) + l5 cos(#6) + l3 cos(#5)), -sin(th1(t)) #3, sin(th1(t)) #4,
+
+  0, l5 cos(th2(t)) cos(th4(t)) sin(th1(t)) sin(th3(t)) - l5 cos(th1(t)) sin(th4(t)) + l5 cos(th3(t)) cos(th4(t)) sin(th1(t)) sin(th2(t)), 0],
+
+  [sin(th1(t)) (#1 + #2 + l4 cos(#6) - l5 cos(#6) - l3 cos(#5)), cos(th1(t)) #3, -cos(th1(t)) #4,
+
+  0, - l5 sin(th1(t)) sin(th4(t)) - l5 cos(th1(t)) cos(th2(t)) cos(th4(t)) sin(th3(t)) - l5 cos(th1(t)) cos(th3(t)) cos(th4(t)) sin(th2(t)), 0],
+
+  [0, l5 cos(#6) - l4 cos(#6) - #1 + l3 cos(#5), l5 cos(#6) - l4 cos(#6) + l3 cos(#5), 0, l5 cos(th4(t)) cos(#6), 0]]
+
+where
+
+   #1 == l2 cos(th2(t))
+
+                2
+   #2 == sqrt(l1  - h)
+
+   #3 == l2 sin(th2(t)) + l4 sin(#6) - l5 sin(#6) - l3 sin(#5)
+
+   #4 == l5 sin(#6) - l4 sin(#6) + l3 sin(#5)
+
+   #5 == th2(t) - th3(t)
+
+   #6 == th2(t) + th3(t)
+
+
+Jacobiano ángular obtenido de forma analítica
+[[0, cos(th1(t)), cos(th1(t)), sin(th1(t)) cos(#1), cos(th1(t)) cos(th4(t)) + sin(th1(t)) sin(th4(t)) sin(#1),
+
+  sin(th5(t)) (cos(th1(t)) sin(th4(t)) - cos(th4(t)) sin(th1(t)) sin(#1)) + cos(th5(t)) sin(th1(t)) cos(#1)],
+
+  [0, sin(th1(t)), sin(th1(t)), -cos(th1(t)) cos(#1), cos(th4(t)) sin(th1(t)) - cos(th1(t)) sin(th4(t)) sin(#1),
+
+  sin(th5(t)) (sin(th1(t)) sin(th4(t)) + cos(th1(t)) cos(th4(t)) sin(#1)) - cos(th1(t)) cos(th5(t)) cos(#1)],
+
+  [1, 0, 0, -sin(#1), sin(th4(t)) cos(#1), - cos(th5(t)) sin(#1) - cos(th4(t)) sin(th5(t)) cos(#1)]]
+
+where
+
+   #1 == th2(t) + th3(t)
+
+
+Velocidad lineal obtenida mediante el Jacobiano lineal
+[[#2 (l5 cos(th2(t)) cos(th4(t)) sin(th1(t)) sin(th3(t)) - l5 cos(th1(t)) sin(th4(t)) + l5 cos(th3(t)) cos(th4(t)) sin(th1(t)) sin(th2(t)))
+
+   - #4 sin(th1(t)) #7 - #5 cos(th1(t)) (#6 - #1 - l4 cos(#10) + l5 cos(#10) + l3 cos(#9)) + #3 sin(th1(t)) #8],
+
+  [#4 cos(th1(t)) #7 - #2 (l5 sin(th1(t)) sin(th4(t)) + l5 cos(th1(t)) cos(th2(t)) cos(th4(t)) sin(th3(t)) + l5
+
+   cos(th1(t)) cos(th3(t)) cos(th4(t)) sin(th2(t))) + #5 sin(th1(t)) (#1 + #6 + l4 cos(#10) - l5 cos(#10) - l3 cos(#9)) - #3 cos(th1(t)) #8],
+
+  [#3 (l5 cos(#10) - l4 cos(#10) + l3 cos(#9)) - #4 (#1 + l4 cos(#10) - l5 cos(#10) - l3 cos(#9)) + l5 #2 cos(th4(t)) cos(#10)]]
+
+where
+
+   #1 == l2 cos(th2(t))
+
+         _________
+          d
+   #2 == -- th5(t)
+         dt
+
+         _________
+          d
+   #3 == -- th3(t)
+         dt
+
+         _________
+          d
+   #4 == -- th2(t)
+         dt
+
+         _________
+          d
+   #5 == -- th1(t)
+         dt
+
+                2
+   #6 == sqrt(l1  - h)
+
+   #7 == l2 sin(th2(t)) + l4 sin(#10) - l5 sin(#10) - l3 sin(#9)
+
+   #8 == l5 sin(#10) - l4 sin(#10) + l3 sin(#9)
+
+   #9 == th2(t) - th3(t)
+
+   #10 == th2(t) + th3(t)
+
+
+Velocidad angular obtenida mediante el Jacobiano angular
+--
+|
+|  [#1 (sin(th5(t)) (cos(th1(t)) sin(th4(t)) - cos(th4(t)) sin(th1(t)) sin(#4)) + cos(th5(t)) sin(th1(t)) cos(#4))
+--
+
+   + #2 (cos(th1(t)) cos(th4(t)) + sin(th1(t)) sin(th4(t)) sin(#4)) + #6 cos(th1(t)) + #5 cos(th1(t)) + #3 sin(th1(t)) cos(#4)],
+
+  [#1 (sin(th5(t)) (sin(th1(t)) sin(th4(t)) + cos(th1(t)) cos(th4(t)) sin(#4)) - cos(th1(t)) cos(th5(t)) cos(#4))
+
+   + #2 (cos(th4(t)) sin(th1(t)) - cos(th1(t)) sin(th4(t)) sin(#4)) + #6 sin(th1(t)) + #5 sin(th1(t)) - #3 cos(th1(t)) cos(#4)],
+
+  -- _________                                                                                                    -- --
+  |   d                                                                                                            |  |
+  |  -- th1(t) - #3 sin(#4) - #1 (cos(th5(t)) sin(#4) + cos(th4(t)) sin(th5(t)) cos(#4)) + #2 sin(th4(t)) cos(#4)  |  |
+  -- dt                                                                                                           -- --
+
+where
+
+         _________
+          d
+   #1 == -- th6(t)
+         dt
+
+         _________
+          d
+   #2 == -- th5(t)
+         dt
+
+         _________
+          d
+   #3 == -- th4(t)
+         dt
+
+   #4 == th2(t) + th3(t)
+
+         _________
+          d
+   #5 == -- th3(t)
+         dt
+
+         _________
+          d
+   #6 == -- th2(t)
+         dt
+
+
+>> 
